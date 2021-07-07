@@ -18,7 +18,7 @@ exec {
 	'Extraction Doku':
 	cwd => '/usr/src',
 	command => 'tar -xzvf dokuwiki.tgz',
-	creates => '/usr/src/dokuwiki',
+	creates => '/usr/bin/dokuwiki',
 	path => ['/usr/bin', '/usr/sbin',];
 }
 
