@@ -38,7 +38,7 @@ exec { 'extraction-doku':
 
 class install_wiki (String $version, String $hostname) {
 	
-	require extract_oku
+	require extract_doku
 	
 	host { $hostname:
 	ip => '127.0.0.1',
@@ -75,7 +75,7 @@ node 'server0' {
 	$hostname = 'politique.wiki'
 	$version = 'politique'
 
-	include extract_doku, install_iki
+	include extract_doku, install_wiki
 }
 
 node 'server1' {
