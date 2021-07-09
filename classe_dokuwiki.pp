@@ -1,17 +1,27 @@
-class extract_doku {
-package {
-        'apache2':
+class require_packages {
+
+package { 'apache2':
         ensure => 'present';
         'php7.3':
         ensure => 'installed';
-}
+
+	}
 
 service { 'apache2':
         ensure    => running,
         enable    => true,
         notify => Package['apache2'];
 
+	}
+
+
 }
+
+
+
+class extract_doku {
+	
+	require require_packages
 
 file { 'download-dokuwiki':
       ensure => 'present',
@@ -70,17 +80,23 @@ class install_wiki (String $version, String $hostname) {
 	}	
 }
 
+node 'control' {
+	
+	include require_pakages
+
+}
+
 
 node 'server0' {
 	$hostname = 'politique.wiki'
 	$version = 'politique'
 
-	include extract_doku, install_wiki
+	include require_packages, extract_doku, install_wiki
 }
 
 node 'server1' {
 	$hostname = 'recettes.wiki'
 	$version = 'recettes'
 
-	include extract_doku, install_wiki
+	include require_packages, extract_doku, install_wiki
 }
