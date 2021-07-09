@@ -1,4 +1,4 @@
-class Doku {
+class extract_doku {
 package {
         'apache2':
         ensure => 'present';
@@ -36,9 +36,9 @@ exec { 'extraction-doku':
 
 }
 
-class Wiki (String $version, String $hostname) {
+class install_wiki (String $version, String $hostname) {
 	
-	require Doku
+	require extract_oku
 	
 	host { $hostname:
 	ip => '127.0.0.1',
@@ -66,7 +66,8 @@ class Wiki (String $version, String $hostname) {
 	exec { 
 	   'start':
 	path	=> ['/usr/bin/', '/usr/sbin'],
-	command => 'a2ensite $version';	
+	command => 'a2ensite $version';
+	}	
 }
 
 
@@ -74,12 +75,12 @@ node 'server0' {
 	$hostname = 'politique.wiki'
 	$version = 'politique'
 
-	include Doku, Wiki
+	include extract_doku, install_iki
 }
 
 node 'server1' {
 	$hostname = 'recettes.wiki'
 	$version = 'recettes'
 
-	include Doku, Wiki
+	include extract_doku, install_wiki
 }
